@@ -1,0 +1,79 @@
+. Database Schema Design:
+Users (Collection):
+javascript
+Copy code
+{
+  _id: ObjectId,
+  name: String,
+  email: String,
+  password: String,
+  role: { type: String, enum: ['Admin', 'Manager', 'Team Member'] },
+  tasks: [{ type: ObjectId, ref: 'Task' }],
+  projects: [{ type: ObjectId, ref: 'Project' }]
+}
+Tasks (Collection):
+javascript
+Copy code
+{
+  _id: ObjectId,
+  title: String,
+  description: String,
+  status: { type: String, enum: ['To-Do', 'In Progress', 'Done'], default: 'To-Do' },
+  priority: { type: String, enum: ['High', 'Medium', 'Low'] },
+  assignee: { type: ObjectId, ref: 'User' },
+  project: { type: ObjectId, ref: 'Project' },
+  comments: [{ type: ObjectId, ref: 'Comment' }],
+  attachments: [String], // URLs to uploaded files
+  deadline: Date,
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date }
+}
+Projects (Collection):
+javascript
+Copy code
+{
+  _id: ObjectId,
+  name: String,
+  description: String,
+  tasks: [{ type: ObjectId, ref: 'Task' }],
+  manager: { type: ObjectId, ref: 'User' },
+  teamMembers: [{ type: ObjectId, ref: 'User' }],
+  createdAt: { type: Date, default: Date.now }
+}
+Comments (Collection):
+javascript
+Copy code
+{
+  _id: ObjectId,
+  content: String,
+  task: { type: ObjectId, ref: 'Task' },
+  author: { type: ObjectId, ref: 'User' },
+  createdAt: { type: Date, default: Date.now }
+}
+
+
+
+Tasks (Updated Schema):
+javascript
+Copy code
+{
+  _id: ObjectId,
+  title: String,
+  description: String,
+  status: { type: String, enum: ['To-Do', 'In Progress', 'Done'], default: 'To-Do' },
+  priority: { type: String, enum: ['High', 'Medium', 'Low'] },
+  assignee: { type: ObjectId, ref: 'User' },
+  project: { type: ObjectId, ref: 'Project' },
+  comments: [{ type: ObjectId, ref: 'Comment' }],
+  attachments: [String], // URLs for files uploaded
+  dependencies: [{ type: ObjectId, ref: 'Task' }], // Task dependencies
+  timeLogs: [{ // Time tracking for tasks
+    userId: { type: ObjectId, ref: 'User' },
+    startTime: Date,
+    endTime: Date,
+    totalTime: Number
+  }],
+  deadline: Date,
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date }
+}
