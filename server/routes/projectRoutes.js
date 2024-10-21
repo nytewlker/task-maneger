@@ -12,7 +12,7 @@ const { authorizeRoles } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Routes
-router.post('/', protect, authorizeRoles('Admin', 'Manager'), createProject);
+router.post('/make', protect, authorizeRoles('Admin', 'Manager'), createProject);
 router.get('/', protect, getProjects);
 router.get('/:id', protect, getProjectById);
 router.put('/:id', protect, authorizeRoles('Admin', 'Manager'), updateProject);

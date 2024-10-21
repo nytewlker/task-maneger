@@ -1,13 +1,34 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Arial, sans-serif;
+  background-color: #0069d3; /* Light background for the whole application */
+  color: #212529; /* Dark text color */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Universal Container */
+.home {
+  width: 100vw;
+  max-width: 1200px;  /* Sets a max width to keep it centered and not too wide on large screens */
+  margin: 0 auto;     /* Centers the container horizontally */
+  padding: 20px;      /* Adds padding inside the container */
+  background-color: #4e4e4e;  /* Default background color */
+  border-radius: 8px;      /* Adds smooth rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for modern look */
+  transition: all 0.3s ease;  /* Smooth transition for hover effects */
+}
+
+.universal-container:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);  /* Adds a deeper shadow on hover */
+}
+
+@media (max-width: 768px) {
+  .universal-container {
+    padding: 15px;   /* Adjusts padding for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .universal-container {
+    padding: 10px;   /* Even tighter padding for very small screens */
+  }
 }
