@@ -5,11 +5,11 @@ import Header from './Header'; // Ensure you import the correct Header component
 
 const Layout = ({ panel }) => {
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <header>
         <Header panel={panel} /> {/* Pass panel prop if needed for navigation */}
       </header>
-      <main>
+      <main style={{ flex: '1' }}>
         <Outlet /> {/* This will render the matched child route component */}
       </main>
       <footer>

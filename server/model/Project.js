@@ -13,6 +13,12 @@ const projectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: "Task" 
   }],
+  status :{
+    type: String,
+    enum: ['Pending', 'In Progress', 'Completed'],
+    default: 'Pending',
+
+  },
   manager: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: "User", 

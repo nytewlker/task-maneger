@@ -3,34 +3,34 @@ const User = require('../model/User');
 
 // @desc    Create a new project
 // @route   POST /api/projects
-// @access  Private (only Manager or Admin)
+// @access  Private (only Admin or Manager)
 exports.createProject = async (req, res) => {
-    const { name, description, manager, teamMembers } = req.body;
-
+    const { name, description, manager } = req.body;
+  
     try {
-        // Check if manager exists
-        const managerExists = await User.findById(manager);
-        if (!managerExists) {
-            return res.status(400).json({ message: "Manager not found" });
-        }
-
-        // Create new project
-        const project = new Project({
-            name,
-            description,
-            manager,
-            teamMembers,
-        });
-
-        // Save project
-        await project.save();
-
-        res.status(201).json(project);
+      // Check if manager exists and has the correct role
+      const managerExists = await User.findOne({ _id: manager, role: "Manager" });
+      if (!managerExists) {
+        return res.status(400).json({ message: "Manager not found or invalid role" });
+      }
+  
+      // Create new project
+      const project = new Project({
+        name,
+        description,
+        manager,
+      });
+  
+      // Save project
+      await project.save();
+  
+      res.status(201).json({ message: "Project created successfully", project });
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+      console.error("Server error:", error);  // Log error for debugging
+      res.status(500).json({ message: "Server error", error: error.message });
     }
-};
-
+  };
+  
 // @desc    Get all projects
 // @route   GET /api/projects
 // @access  Private (Admin, Manager)
@@ -47,6 +47,7 @@ exports.getProjects = async (req, res) => {
 // @route   GET /api/projects/:id
 // @access  Private
 exports.getProjectById = async (req, res) => {
+    console.log('Fetching project with ID:', req.params.id); // Log the incoming ID
     try {
         const project = await Project.findById(req.params.id).populate('manager teamMembers tasks');
 
@@ -56,15 +57,17 @@ exports.getProjectById = async (req, res) => {
 
         res.json(project);
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        console.error('Error fetching project:', error); // Log error details
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
 
 // @desc    Update a project
 // @route   PUT /api/projects/:id
 // @access  Private (only Manager or Admin)
 exports.updateProject = async (req, res) => {
-    const { name, description, manager, teamMembers } = req.body;
+    const { name, description, manager,status, teamMembers } = req.body;
 
     try {
         // Find project by ID
@@ -77,6 +80,7 @@ exports.updateProject = async (req, res) => {
         // Update project details
         project.name = name || project.name;
         project.description = description || project.description;
+        project.status = status || project.status
         project.manager = manager || project.manager;
         project.teamMembers = teamMembers || project.teamMembers;
 

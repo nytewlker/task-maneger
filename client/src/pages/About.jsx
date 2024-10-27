@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is import
 
 const AboutUs = () => {
   return (
-    <Container className="mt-5 p-5 h-100" >
+    <div className="Universal-Container" >
       <Row className="text-center">
         <Col>
           <h1>About Us</h1>
@@ -14,7 +14,7 @@ const AboutUs = () => {
 
       <Row className="justify-content-center">
         <Col md={8}>
-          <Card className="mb-4">
+          <Card className="mb-4 bg-light">
             <Card.Body>
               <h2>Our Mission</h2>
               <p>
@@ -30,7 +30,7 @@ const AboutUs = () => {
 
       <Row className="justify-content-center">
         <Col md={8}>
-          <Card className="mb-4">
+          <Card className="mb-4 bg-light">
             <Card.Body>
               <h2>Meet the Team</h2>
               <Row>
@@ -66,7 +66,7 @@ const AboutUs = () => {
           </Card>
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

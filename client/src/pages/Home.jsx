@@ -1,12 +1,12 @@
 import React from 'react';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Row, Col, Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
 import AboutUs from './About';
 import ContactUs from './Contact';
 
 const Home = () => {
   return (
-    <Container className="mt-5 p-5 h-100" flex >
+    <div className="Universal-Container">
       <Row className="text-center">
         <Col>
           <h1>Task Manager</h1>
@@ -17,10 +17,11 @@ const Home = () => {
       <Row className="justify-content-center ">
         <Col md={8}>
           <h2 className="text-center">Features</h2>
-          <Card className="text-center mb-4">
+          <Card className="text-center  bg-light mb-4">
             <Card.Body>
               <ul className="list-unstyled">
-                <li>✅ Create and manage tasks easily</li>
+                <li>✅ Create and manage projects easily</li>
+                <li>✅ Create and Assign tasks easily</li>
                 <li>✅ Set deadlines and reminders</li>
                 <li>✅ Collaborate with team members</li>
                 <li>✅ Track your progress</li>
@@ -34,13 +35,21 @@ const Home = () => {
         <Col md={8} className="text-center">
           <h2>Get Started</h2>
           <p>Create an account to access all features!</p>
-          <Button variant="success" className="mx-2">Sign Up</Button>
-          <Button variant="outline-success" className="mx-2">Log In</Button>
+          <Button variant="light" href='/register' className="mx-2">Sign Up</Button>
+          <Button variant="outline-dark" href='/regiter' className="mx-2">Log In</Button>
         </Col>
       </Row>
+      {/* Unique wrapper for AboutUs */}
+      <div className="about-wrapper">
+        <AboutUs />
+      </div>
+
+      {/* Unique wrapper for ContactUs */}
+      <div className="contact-wrapper">
+        <ContactUs />
+      </div>
       <AboutUs/>
-      <ContactUs/>
-    </Container>
+    </div>
   );
 };
 
